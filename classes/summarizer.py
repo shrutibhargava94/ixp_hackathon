@@ -61,9 +61,9 @@ class FrequencySummarizer:
         for w in sent:
 
           if w in self._freq.keys():
-            if self._freq[w] == 0:
-              print("yo!",  w)
-            score *= self._freq[w]
+            if self._freq[w] != 0:
+              #print("yo!",  w)
+              score *= self._freq[w]
         score *= (len(sent) * 1.0)
         ranks.append(score)
       indices = np.array(range(len(word_sent)))
