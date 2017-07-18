@@ -42,11 +42,22 @@ class FrequencySummarizer:
       freq[w] /= (total * 1.0)
     return freq
 
-  def summarize(self, text, n):
+  def summarize(self, text):
     """
       Return a list of n sentences
       which represent the summary of text.
     """
+    n = len(text.split("\n"))
+    n += len(text.split("."))
+    n += len(text.split("!"))
+    n += len(text.split("?"))
+
+    heuristic = 20
+    n = int(n / heuristic)
+    if n < 1:
+      n = 1
+
+    print(n)
     sents = sent_tokenize(text)
     assert n <= len(sents)
     req_sents = ""#[]
@@ -69,7 +80,7 @@ class FrequencySummarizer:
       indices = np.array(range(len(word_sent)))
       inds = np.array(ranks).argsort()
       sents_idx = indices[inds]
-      req_sents += sents[sents_idx[0]]
+      req_sents += str(iterator + 1) + " -> " + sents[sents_idx[0]] + "\n"
       for w in word_sent[sents_idx[0]]:
         # print(w, self._freq[w])
         if w in self._freq.keys():
@@ -86,6 +97,6 @@ class FrequencySummarizer:
 #Sample usage
 
 # fs = FrequencySummarizer()
-# print(fs.summarize(text, 8))
+# print(fs.summarize(text))
 
 
