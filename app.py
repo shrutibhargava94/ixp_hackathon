@@ -18,6 +18,7 @@ fs = FrequencySummarizer()
 app = Flask(__name__)
 
 TEST_CHANNEL = "C68MNQ02W"
+HEURISTIC = 13;
 
 # Respond to the / path
 @app.route('/')
@@ -33,10 +34,17 @@ def summarize_text():
     user_id= request.form['user_id']
     ts = helper.get_timestamp(user_id)
     info = sc.channel_info(channel_id, ts)
+
     text = ""
+    counter = 0
     for blob in info:
-        text += blog.text;
-    summary = fs.summarize(text, 8)
+        text += blog.text
+        counter += 1
+    length = counter/HEURISTIC
+    if length < 1:
+        length = 1
+
+    summary = fs.summarize(text, length)
     return summary
 
 # Run the app in main
