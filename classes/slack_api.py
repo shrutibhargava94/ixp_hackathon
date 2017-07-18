@@ -1,6 +1,6 @@
 from slackclient import SlackClient
 
-class slack:
+class Slack:
 
     def __init__(self, token):
         self.slack_client = SlackClient(token);

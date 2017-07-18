@@ -1,7 +1,7 @@
 import json
 import time
 
-class helper:
+class Helper:
 
     def __init__(self):
         self.timestamps = dict();
@@ -10,10 +10,8 @@ class helper:
     # @param - user_id: the id of the user from the Slack API
     # if first time seeing user return 0
     # else return the last time a user was seen
-     @staticmethod
-    def get_timestamp(user_id):
-        global timestamps
-        if user_id in timestamps: ts = timestamps[user_id]
+    def get_timestamp(self,user_id):
+        if user_id in self.timestamps: ts = self.timestamps[user_id]
         else: ts = 0
-        timestamps[user_id] = time.time()
+        self.timestamps[user_id] = time.time()
         return ts
