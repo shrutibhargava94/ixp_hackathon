@@ -7,10 +7,10 @@ A statistical implementation of a summarizer meant to compress hours of conversa
 
 The model also compiles a list of keywords highlighting the topic of the conversation making use of a probabilistic graphical model LDA.
 
+The summarizer is integrated with the the Slack API which provides the functionality to summarize a long history of messages on slack into a few comprehesive bullet points.
+
 # Libraries Required:
 1) Numpy
 2) NLTK
 3) gensim
 4) Slack Client
-
-The summarizer is integrated with the the Slack API which provides the functionality to summarize a long history of messages on slack into a few comprehesive bullet points.
