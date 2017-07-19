@@ -97,7 +97,7 @@ class FrequencySummarizer:
     # for j in sents_idx[0:n]:
     #   print(i, " -> ", sents[j])
     #   i += 1
-    return req_sents, keywords_list
+    return str(keywords_list) + "\n\n" + req_sents
 
 #Sample usage
 
