@@ -3,6 +3,7 @@ from nltk.corpus import stopwords
 from string import punctuation
 import numpy as np
 import re
+from lda_keyword_finder import LdaKeywordsFinder
 
 class FrequencySummarizer:
   def __init__(self, min_cut=0.1, max_cut=0.9):
@@ -87,12 +88,16 @@ class FrequencySummarizer:
           self._freq[w] *= self._freq[w]
       word_sent.remove(word_sent[sents_idx[0]])
       sents.remove(sents[sents_idx[0]])
-
+    num_topics = 1
+    num_words = 20
+    passes = 200
+    lda_keywords_finder = LdaKeywordsFinder(text, num_topics, num_words, passes)
+    keywords_list = lda_keywords_finder.getKeywords()
     # i = 1
     # for j in sents_idx[0:n]:
     #   print(i, " -> ", sents[j])
     #   i += 1
-    return req_sents
+    return req_sents, keywords_list
 
 #Sample usage
 

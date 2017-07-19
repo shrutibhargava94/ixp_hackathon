@@ -1,4 +1,3 @@
-
 import sys
 import re
 import gensim
@@ -7,7 +6,7 @@ from stop_words import get_stop_words
 from nltk.stem.porter import PorterStemmer
 from gensim import corpora, models
 
-class ldaKeywordsFinder:
+class LdaKeywordsFinder:
 
     def __init__(self, doc="", num_topics=1, num_words=20, passes=200):
         self._doc = doc 
@@ -83,16 +82,15 @@ class ldaKeywordsFinder:
         
 
 if __name__ == "__main__":
+    """
     reload(sys)
     sys.setdefaultencoding('utf8')
     #doc = sys.stdin.read();
-    doc = open("gop_debate_sample.rtf").read()
-    num_topics = 1
-    num_words = 20 
-    passes = 200
-    lda_keywords_finder = ldaKeywordsFinder(doc, num_topics, num_words, passes)
-    result = lda_keywords_finder.getKeywords()
+    doc = open(file_name).read()
+    fs = FrequencySummarizer()
+    sen, result = fs.summarize(doc)
+    print(result)
     for topic in result:
         for keyword in topic:
             print(keyword)
-    
+    """
