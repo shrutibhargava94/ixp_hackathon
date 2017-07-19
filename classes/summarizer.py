@@ -2,6 +2,7 @@ from nltk.tokenize import sent_tokenize,word_tokenize
 from nltk.corpus import stopwords
 from string import punctuation
 import numpy as np
+import re
 
 class FrequencySummarizer:
   def __init__(self, min_cut=0.1, max_cut=0.9):
@@ -47,21 +48,21 @@ class FrequencySummarizer:
       Return a list of n sentences
       which represent the summary of text.
     """
-    n = len(text.split("\n"))
-    n += len(text.split("."))
-    n += len(text.split("!"))
-    n += len(text.split("?"))
+
+
+    sents = sent_tokenize(text)
 
     heuristic = 20
-    n = int(n / heuristic)
+    n = int(len(sents) / heuristic)
     if n < 1:
       n = 1
 
-    print(n)
-    sents = sent_tokenize(text)
-    assert n <= len(sents)
+    try:
+      assert n <= len(sents)
+    except:
+      return text
+
     req_sents = ""#[]
-    SW = set(stopwords.words('english') + list(punctuation))
     word_sent = [word_tokenize(s.lower()) for s in sents]# if word_tokenize(s.lower()) not in list(SW)]
     self._freq = self._compute_frequencies(word_sent)
 
@@ -73,7 +74,6 @@ class FrequencySummarizer:
 
           if w in self._freq.keys():
             if self._freq[w] != 0:
-              #print("yo!",  w)
               score *= self._freq[w]
         score *= (len(sent) * 1.0)
         ranks.append(score)
@@ -98,5 +98,3 @@ class FrequencySummarizer:
 
 # fs = FrequencySummarizer()
 # print(fs.summarize(text))
-
-
